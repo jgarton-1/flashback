@@ -1,23 +1,20 @@
   <!DOCTYPE html>
   <html>
-    <head>
-      <title>Flashback</title>
-      <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.development.js"></script>
+ <head>
+    <title>Flashback</title>
+    <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.development.js"></script>
+    <script src="flashcardData.js"></script>
+
     <link rel="stylesheet" type="text/css" href="index.css"></link>
-    </head>
+  </head>
     <body>
       <div id="app"></div>
 <script type='text/babel'>
-  var cardData = { 
-    front: {
-      question: 'You may know that React was created at _________.',
-      hint: 'This company\'s site is known for being written in PHP.'
-    }
-  };
+const cardData = importedFlashCardDataFile;
 
-  class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <div className='App'>
@@ -27,25 +24,24 @@
         <p className='sub-title'>
           An interactive flashcard app.
         </p>
-        <div className='card-list'>
-          <Card front={cardData.front} />
+        <div className="card-list">
+          {cardData.map((card) => <Card front={card.front} />)}
         </div>
       </div>
     );
   }
 }
 
-  class Card extends React.Component {
-    render() {
+class Card extends React.Component {
+  render() {
     return (
       <div className='Card -front'>
-        <div className='front'>
+        <div className="front">
           <h3 className='question'>
             {this.props.front.question}
           </h3>
           <p className='hint'>
-            <span>Hint:</span> 
-            {this.props.front.hint}
+            <span>Hint:</span> {this.props.front.hint}
           </p>
         </div>
       </div>
@@ -53,7 +49,7 @@
   }
 }
 
-  ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 </script>
     </body>
   </html>
